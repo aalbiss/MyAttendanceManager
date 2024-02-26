@@ -5,11 +5,11 @@
     <title>Access profile</title>
   </head>
   <body>
-    <form method="post" action="/login">
+    <form action="/login">
       <button type="submit"> Log in </button>
     </form>
   
-    <form method="post" action="/signin">
+    <form action="/signin">
       <button type="submit"> Register </button>
     </form>
   

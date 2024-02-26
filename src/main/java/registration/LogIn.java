@@ -9,9 +9,6 @@ import java.io.IOException;
 @WebServlet(name = "logIn", urlPatterns = "/login")
 public class LogIn extends HttpServlet {
     
-    String username = " ";
-    String password = " ";
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
@@ -22,15 +19,16 @@ public class LogIn extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        username = request.getParameter("username");
-        password = request.getParameter("password");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
         
-        if(username == null || username.isEmpty() || password == null || password.isEmpty()){
+        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             request.setAttribute("error", "Some inputs are missing");
             doGet(request, response);
-        }else{
+        } else {
+            
             getServletContext().getRequestDispatcher("/student/studentPage.jsp").forward(request, response);
         }
-    
+        
     }
 }

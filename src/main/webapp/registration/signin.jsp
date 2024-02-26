@@ -7,7 +7,7 @@
 <body>
 <form method="post" action="/signin">
     
-<%--    <p> ${error} </p>--%>
+    <p> ${error} </p>
     
     <label for="name">Birth name: </label>
     <input type="text" name="name" id="name"><br>

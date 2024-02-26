@@ -15,23 +15,16 @@ public class SignIn extends HttpServlet {
         
         getServletContext().getRequestDispatcher("/registration/signin.jsp").forward(request, response);
         
-        
-        
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = " ";
-        String username = " ";
-        String mail = " ";
-        String password = " ";
-        String confirmPass = " ";
         
-        name = request.getParameter("name");
-        username = request.getParameter("username");
-        mail = request.getParameter("mail");
-        password = request.getParameter("password");
-        confirmPass = request.getParameter("confirmPass");
+        String name = request.getParameter("name");
+        String username = request.getParameter("username");
+        String mail = request.getParameter("mail");
+        String password = request.getParameter("password");
+        String confirmPass = request.getParameter("confirmPass");
         
         
         if(name == null || name.isEmpty() || username == null || username.isEmpty() || mail == null || mail.isEmpty() || password == null || password.isEmpty() || confirmPass == null || confirmPass.isEmpty()){
