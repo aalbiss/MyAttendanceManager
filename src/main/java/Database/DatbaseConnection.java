@@ -1,9 +1,6 @@
 package Database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DatbaseConnection {
     
@@ -48,17 +45,67 @@ public class DatbaseConnection {
         }
     }
     
-    public void add(){
-        String query = "INSERT INTO sql_users.users (name, username, mail, password) VALUES (1, 'Alberto', 'Ambrosi', 'albertoambrosi6@gmail.com', 'Alberto06')";
+    public void add(String name, String username, String mail, String password){
+        
+        int id = 0;
+        String queryFind = "SELECT * FROM sql_users.users WHERE name = '" + name +  "' AND username = '" + username +  "' AND mail = '" + mail +  "' AND  password = '" + password +  "'";
+        
+        
+        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(queryFind)
+        ) {
+            if (rs.next()) {
+                id = rs.getInt("idNo");
+            }
+            if(id == 0){
+                String query = "INSERT INTO sql_users.users (name, username, mail, password) VALUES ('" + name + "', '" + username + "', '" + mail + "', '" + password + "')";
+                stmt.executeUpdate(query);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        
+        if(id == 0){
+            System.out.println("Non esiste");
+        }else{
+            System.out.println("Esiste");
+        }
+        
+    }
+    
+    public void remove(String name, String username, String mail, String password){
+        
+        int id = 0;
+        String queryFind = "SELECT * FROM sql_users.users WHERE name = '" + name +  "' AND username = '" + username +  "' AND mail = '" + mail +  "' AND  password = '" + password +  "'";
+        
+        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(queryFind)
+        ) {
+            if (rs.next()) {
+                id = rs.getInt("idNo");
+            }
+            if(id != 0) {
+                String queryRemove = "DELETE FROM sql_users.users WHERE idNo = " + id;
+                stmt.executeUpdate(queryRemove);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        
     }
     
     public static void main(String[] args) {
         
         DatbaseConnection dbConnection = new DatbaseConnection();
 //        dbConnection.create();
-        dbConnection.connect();
-        dbConnection.add();
-//        dbConnection.initialization();
+//        dbConnection.connect();
+//        dbConnection.add("Alberto", "suca", "albertoambrosi6@gmail.com", "Alberto06");
+//        dbConnection.remove("Alberto", "suca", "albertoambrosi6@gmail.com", "Alberto06");
+    
+    
+    
     }
     
 }
