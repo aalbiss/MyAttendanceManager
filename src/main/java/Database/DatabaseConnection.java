@@ -2,13 +2,13 @@ package Database;
 
 import java.sql.*;
 
-public class DatbaseConnection {
+public class DatabaseConnection {
     
-    private String DB_URL;
-    private String USER;
-    private String PASS;
+    private final String DB_URL;
+    private final String USER;
+    private final String PASS;
     
-    public DatbaseConnection() {
+    public DatabaseConnection() {
         DB_URL = "jdbc:mysql://localhost/";
         USER = "root";
         PASS = "Alberto06";
@@ -38,7 +38,7 @@ public class DatbaseConnection {
     
     public void connect(){
         System.out.println("Connecting to a selected database...");
-        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
             System.out.println("Connected database successfully...");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,7 +98,7 @@ public class DatbaseConnection {
     
     public static void main(String[] args) {
         
-        DatbaseConnection dbConnection = new DatbaseConnection();
+        DatabaseConnection dbConnection = new DatabaseConnection();
 //        dbConnection.create();
 //        dbConnection.connect();
 //        dbConnection.add("Alberto", "suca", "albertoambrosi6@gmail.com", "Alberto06");
