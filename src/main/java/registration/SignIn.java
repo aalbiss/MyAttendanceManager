@@ -12,9 +12,7 @@ import java.io.IOException;
 public class SignIn extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
         getServletContext().getRequestDispatcher("/registration/signin.jsp").forward(request, response);
-        
     }
     
     @Override
@@ -26,7 +24,6 @@ public class SignIn extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPass = request.getParameter("confirmPass");
         
-        
         if(name == null || name.isEmpty() || username == null || username.isEmpty() || mail == null || mail.isEmpty() || password == null || password.isEmpty() || confirmPass == null || confirmPass.isEmpty()){
             request.setAttribute("error", "Some inputs are missing");
             doGet(request, response);
@@ -36,11 +33,5 @@ public class SignIn extends HttpServlet {
         } else{
             getServletContext().getRequestDispatcher("/student/studentPage.jsp").forward(request, response);
         }
-        
-    
     }
-    
-    
-    
-    
 }

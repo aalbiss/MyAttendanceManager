@@ -11,9 +11,7 @@ public class LogIn extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
         getServletContext().getRequestDispatcher("/registration/login.jsp").forward(request, response);
-        
     }
     
     @Override
@@ -29,6 +27,5 @@ public class LogIn extends HttpServlet {
             
             getServletContext().getRequestDispatcher("/student/studentPage.jsp").forward(request, response);
         }
-        
     }
 }
