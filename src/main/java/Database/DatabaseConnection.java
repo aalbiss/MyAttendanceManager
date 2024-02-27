@@ -96,16 +96,37 @@ public class DatabaseConnection {
         
     }
     
-    public static void main(String[] args) {
+    public boolean checkExists(String name, String username, String mail, String password){
         
+        int id = 0;
+        boolean exist = false;
+        String queryFind = "SELECT * FROM sql_users.users WHERE name = '" + name +  "' AND username = '" + username +  "' AND mail = '" + mail +  "' AND  password = '" + password +  "'";
+        
+        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(queryFind)
+        ) {
+            if (rs.next()) {
+                id = rs.getInt("idNo");
+            }
+            if(id != 0) {
+                exist = true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        
+        return exist;
+        
+    }
+    
+    public static void main(String[] args) {
+
         DatabaseConnection dbConnection = new DatabaseConnection();
 //        dbConnection.create();
 //        dbConnection.connect();
 //        dbConnection.add("Alberto", "suca", "albertoambrosi6@gmail.com", "Alberto06");
 //        dbConnection.remove("Alberto", "suca", "albertoambrosi6@gmail.com", "Alberto06");
-    
-    
-    
     }
     
 }
