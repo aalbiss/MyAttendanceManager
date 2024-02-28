@@ -4,7 +4,6 @@
         <title>Student profile</title>
     </head>
     <body>
-        <p>You are logged in with a student account</p>
-        <p>${username}</p>
+        <p>You are logged in with an admin account</p>
     </body>
 </html>

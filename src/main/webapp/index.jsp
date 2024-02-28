@@ -5,6 +5,8 @@
     <title>Access profile</title>
   </head>
   <body>
+    
+    <p> ${error} </p>
   
     <form action="/login">
       <button type="submit"> Log in </button>
