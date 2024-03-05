@@ -176,8 +176,7 @@ public class UserDao {
     public boolean checkExistProfessor(String name){
         
         boolean exists = false;
-        String role = "";
-        String queryFindProfessor = "SELECT idNo, name, role FROM sql_users.users WHERE name = '" + name + "'";
+        String queryFindProfessor = "SELECT idNo, name, role FROM sql_users.users WHERE name LIKE '%" + name + "%' AND role = 'professor'";
         
         Connection con = null;
         
@@ -186,14 +185,10 @@ public class UserDao {
             con = DriverManager.getConnection(DB_URL, USER, PASS);
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(queryFindProfessor);
-            
+
             if(rs.next()){
-                role = rs.getString("role");
-                if(role.equalsIgnoreCase("professor"))
-                    exists = true;
+                exists = true;
             }
-            
-            
         } catch (Exception e) {
             throw new RuntimeException(e);
         }finally {
@@ -205,9 +200,37 @@ public class UserDao {
         }
         
         return exists;
-        
-        
     }
+    
+    public String getNameProfessor(String name){
+        
+        String fullName = "";
+        String queryFindProfessor = "SELECT idNo, name, role FROM sql_users.users WHERE name LIKE '%" + name + "%' AND role = 'professor'";
+        
+        Connection con = null;
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(queryFindProfessor);
+            
+            if(rs.next()){
+                fullName = rs.getString("name");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            try {
+                if (con != null) { con.close(); }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        
+        return fullName;
+    }
+    
     
     public String is(User user){
         

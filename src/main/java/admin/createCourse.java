@@ -29,18 +29,20 @@ public class createCourse extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        String name = request.getParameter("name");
+        String courseName = request.getParameter("name");
         String professor = request.getParameter("professor");
         String duration = request.getParameter("duration");
         Course course = new Course();
         
-        course.setName(name);
-        course.setProfessor(professor);
+        String fullName = userDao.getNameProfessor(professor);
+        
+        course.setName(courseName);
+        course.setProfessor(fullName);
         course.setDuration(duration);
         
         int d = Integer.parseInt(duration);
         
-        if(name == null || name.isEmpty() || professor == null || professor.isEmpty() || duration == null || duration.isEmpty()){
+        if(courseName == null || courseName.isEmpty() || professor == null || professor.isEmpty() || duration == null || duration.isEmpty()){
             request.setAttribute("error", "Some inputs are missing");
         }else if (d <= 0) {
             request.setAttribute("error", "Invalid duration");
